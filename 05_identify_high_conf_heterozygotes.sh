@@ -2,7 +2,7 @@
 # ------------------------------------------------------------------
 # Author:       A.Sendell-Price
 # Date:         February 2023
-# Title:        05_define_in-house_filters.sh
+# Title:        05_identify_high_conf_heterozygotes.sh
 # Description:  ADD
 # slurm:        #SBATCH -p core -n 1
 #               #SBATCH -t 2-00:00:00
@@ -80,22 +80,5 @@ java -jar ../BIN/picard.jar MergeVcfs \
 
 #Remove temp files
 rm temp1.vcf.gz* temp2.vcf.gz*
-
-# Based on the distribution of genotype quality annotations in the above VCF, define
-# the filtering criteria (lower = 5th percentile, upper = 95th percentile).
-# Filtering will be applied to the following site annotations:
-# mapping quality: MQ (lower bound only)
-# mapping quality rank sum: MQRankSum
-# base quality rank sum: BaseQRankSum
-# read position rank sum: ReadPosRankSum
-# quality by depth: QD (lower bound only)
-# Filtering will then be applied to the following individual annotations:
-# genotype quality: GQ (lower bound only)
-# sample read depth: DP 
-Rscript ../generate.custom.filters.R \
-  HighConf_heterozygous_sites.vcf.gz \
-  called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.vcf.gz \
-  called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.PASSED_inhouse_filters.vcf.gz \
-  11
 
 # END!
