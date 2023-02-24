@@ -6,6 +6,9 @@
 # Description:  ADD
 # slurm:        #SBATCH -p core -n 1
 #               #SBATCH -t 2-00:00:00
+# Requirements: requires installation of Simon Martin's
+#               genomics general scripts:
+#               https://github.com/simonhmartin/genomics_general
 # ------------------------------------------------------------------
 
 # Load required modules
@@ -34,6 +37,24 @@ Rscript ../accessory_scripts/generate.custom.filters.R \
 
 # Apply filtering criteria by running the script created by "generate.custom.filters.R"
 source apply.custom.filters.sh
+# This file looks like this:
+# zcat ../high_conf_heterozygotes/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.vcf.gz \
+#   | bcftools view -e 'INFO/BaseQRankSum < -0.908 || INFO/BaseQRankSum > 1.07' \
+#   | bcftools view -e 'INFO/ReadPosRankSum < -0.728 || INFO/ReadPosRankSum > 0.861' \
+#   | bcftools view -e 'INFO/MQ < 58.19' \
+#   | bcftools view -e 'INFO/QD < 20.75' \
+#   | bcftools filter -S . -e 'FMT/DP[0] < 28 || FMT/DP[0] > 76' \
+#   | bcftools filter -S . -e 'FMT/DP[1] < 24 || FMT/DP[1] > 67' \
+#   | bcftools filter -S . -e 'FMT/DP[2] < 14 || FMT/DP[2] > 45' \
+#   | bcftools filter -S . -e 'FMT/DP[3] < 27 || FMT/DP[3] > 75' \
+#   | bcftools filter -S . -e 'FMT/DP[4] < 14 || FMT/DP[4] > 48' \
+#   | bcftools filter -S . -e 'FMT/DP[5] < 17 || FMT/DP[5] > 52' \
+#   | bcftools filter -S . -e 'FMT/DP[6] < 19 || FMT/DP[6] > 56' \
+#   | bcftools filter -S . -e 'FMT/DP[7] < 22 || FMT/DP[7] > 62' \
+#   | bcftools filter -S . -e 'FMT/DP[8] < 17 || FMT/DP[8] > 50' \
+#   | bcftools filter -S . -e 'FMT/DP[9] < 45 || FMT/DP[9] > 99' \
+#   | bcftools filter -S . -e 'FMT/DP[10] < 101 || FMT/DP[10] > 159' \
+#   | bgzip > called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.PASSED_inhouse_filters.vcf.gz
 
 # From the custom filtered dataset, extract positons where both parents are
 # homozygous ref and at least one offspring is hereozygous
@@ -59,5 +80,9 @@ java -jar /proj/snic2020-2-19/private/shark/users/ash/BIN/picard/build/libs/pica
 
 #Remove temp files
 rm temp1.vcf.gz* temp2.vcf.gz*
+
+#Convert putative mutations to "genotype" format i.e. A,T,C,G
+python ../genomics_general/VCF_processing/parseVCF.py \
+  -i putative_mutations.vcf.gz > Putative_Mutations.genotypes.txt
 
 # END!
