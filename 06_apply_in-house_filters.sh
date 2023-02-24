@@ -31,14 +31,14 @@ cd putative_mutations_GATK
 # sample read depth: DP
 Rscript ../accessory_scripts/generate.custom.filters.R \
   ../high_conf_heterozygotes/HighConf_heterozygous_sites.vcf.gz \
-  ../high_conf_heterozygotes/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.vcf.gz \
-  called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.PASSED_inhouse_filters.vcf.gz \
+  ../hard_filtering/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.vcf.gz \
+  called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.PASSED_inhouse_filters.vcf.gz \
   11
 
 # Apply filtering criteria by running the script created by "generate.custom.filters.R"
 source apply.custom.filters.sh
 # This file looks like this:
-# zcat ../high_conf_heterozygotes/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.vcf.gz \
+# zcat ../hard_filtering/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.vcf.gz \
 #   | bcftools view -e 'INFO/BaseQRankSum < -0.908 || INFO/BaseQRankSum > 1.07' \
 #   | bcftools view -e 'INFO/ReadPosRankSum < -0.728 || INFO/ReadPosRankSum > 0.861' \
 #   | bcftools view -e 'INFO/MQ < 58.19' \
@@ -54,11 +54,11 @@ source apply.custom.filters.sh
 #   | bcftools filter -S . -e 'FMT/DP[8] < 17 || FMT/DP[8] > 50' \
 #   | bcftools filter -S . -e 'FMT/DP[9] < 45 || FMT/DP[9] > 99' \
 #   | bcftools filter -S . -e 'FMT/DP[10] < 101 || FMT/DP[10] > 159' \
-#   | bgzip > called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.PASSED_inhouse_filters.vcf.gz
+#   | bgzip > called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.PASSED_inhouse_filters.vcf.gz
 
 # From the custom filtered dataset, extract positons where both parents are
 # homozygous ref and at least one offspring is hereozygous
-zcat called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.PASSED_inhouse_filters.vcf.gz \
+zcat called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.PASSED_inhouse_filters.vcf.gz \
   | bcftools view -i 'GT[9]="ref" & GT[9]="hom"' \
   | bcftools view -i 'GT[10]="ref" & GT[10]="hom"' \
   | bcftools view -i 'GT[0]="het" || GT[1]="het" || GT[2]="het" || GT[3]="het" || GT[4]="het" || GT[5]="het" || GT[6]="het" || GT[7]="het" || GT[8]="het"' \
@@ -77,8 +77,6 @@ java -jar /proj/snic2020-2-19/private/shark/users/ash/BIN/picard/build/libs/pica
   I=temp1.vcf.gz \
   I=temp2.vcf.gz \
   O=putative_mutations.vcf.gz
-
-#Remove temp files
 rm temp1.vcf.gz* temp2.vcf.gz*
 
 #Convert putative mutations to "genotype" format i.e. A,T,C,G
