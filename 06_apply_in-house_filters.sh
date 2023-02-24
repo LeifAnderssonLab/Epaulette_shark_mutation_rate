@@ -81,6 +81,6 @@ rm temp1.vcf.gz* temp2.vcf.gz*
 
 #Convert putative mutations to "genotype" format i.e. A,T,C,G
 python ../genomics_general/VCF_processing/parseVCF.py \
-  -i putative_mutations.vcf.gz > Putative_Mutations.genotypes.txt
+  -i putative_mutations.vcf.gz > Putative_Mutations.GATK_genotypes.txt
 
 # END!
