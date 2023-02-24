@@ -17,14 +17,8 @@ cd high_conf_heterozygotes
 
 # Extract sample names from VCF
 bcftools query -l \
-  ../hard_filtering/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.vcf.gz \
+  ../hard_filtering/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.vcf.gz \
   > all.samples
-
-#Set sample genotypes with GQ < 20 to missing "./."
-zcat ../hard_filtering/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.vcf.gz \
-  | bcftools filter -S . -e 'FMT/GQ[@all.samples] < 20' \
-  | bcftools view -e 'GT[9]="mis" || GT[10]="mis"' \
-  | bgzip > called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.vcf.gz
 
 # Set sample genotype to missing if allele balance is:
 # < 0.2 for heterozygote calls
@@ -32,7 +26,7 @@ zcat ../hard_filtering/called_by_GATK_invariant_plus_biallelic.informative_sites
 # This is implemented using the jvarkit tool "vcffilterjdk"
 # Remove any sites where parental genotypes are now missing
 source ../accessory_scripts/filter_het_homo_by_AB.sh \
-  called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.vcf.gz \
+  ../hard_filtering/called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.vcf.gz \
   temp.vcf.gz
 zcat temp.vcf.gz | bcftools view -e 'GT[9]="mis" || GT[10]="mis"' \
   | bgzip > called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.NonRepeat.minGQ20.AB_filtered.vcf.gz
