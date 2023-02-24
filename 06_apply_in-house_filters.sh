@@ -72,15 +72,23 @@ zcat called_by_GATK_invariant_plus_biallelic.informative_sites.HighlyMappable.No
   | bcftools view -i 'GT[0]="het" || GT[1]="het" || GT[2]="het" || GT[3]="het" || GT[4]="het" || GT[5]="het" || GT[6]="het" || GT[7]="het" || GT[8]="het"' \
   | bcftools sort | bgzip > temp2.vcf.gz
 
-#Combine the two VCFs into a single file, these represent putative mutations
+#Combine the two VCFs into a single file
 java -jar /proj/snic2020-2-19/private/shark/users/ash/BIN/picard/build/libs/picard.jar MergeVcfs \
   I=temp1.vcf.gz \
   I=temp2.vcf.gz \
   O=putative_mutations.vcf.gz
 rm temp1.vcf.gz* temp2.vcf.gz*
 
-#Convert putative mutations to "genotype" format i.e. A,T,C,G
-python ../genomics_general/VCF_processing/parseVCF.py \
-  -i putative_mutations.vcf.gz > Putative_Mutations.GATK_genotypes.txt
+#For putative mutations, set sample genotype to missing if allele balance is:
+#< 0.2 for heterozygote calls
+#< 0.9 for homozygote calls 
+#This is implemented using the jvarkit tool "vcffilterjdk"
+source ../accessory_scripts/filter_het_homo_by_AB.sh \
+  putative_mutations.vcf.gz \
+  putative_mutations.AB_filtered.vcf.gz
 
+#Convert AB-filterd putative mutations to "genotype" format i.e. A,T,C,G
+python ../genomics_general/VCF_processing/parseVCF.py \
+  -i putative_mutations.AB_filtered.vcf.gz > putative_mutations.AB_filtered.GATK_genotypes.txt
+  
 # END!
