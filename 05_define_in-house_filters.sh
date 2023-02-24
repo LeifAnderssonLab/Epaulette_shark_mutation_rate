@@ -12,8 +12,8 @@
 module load bioinfo-tools GATK/4.2.0.0 bcftools BEDTools/2.29.2 samtools/1.5 vcftools/0.1.16
 
 # Make directory and move into it
-mkdir high_conf_heterozygous_sites
-cd high_conf_heterozygous_sites
+mkdir define_in-house_filters
+cd define_in-house_filters
 
 # Extract sample names from VCF
 bcftools query -l \
