@@ -4,8 +4,7 @@ This repository contains scripts necessary to re-conduct the de novo mutation ra
 Pedigree-based estimate of de novo mutation rate in the epaulette shark defines the lowest known vertebrate mutation rate.
 
 ## Overview
-
-The pipeline was design for a slurm job scheduling system on Linux. Using another job scheduling system would require some changes in the scripts. Scripts should be run in the following order:
+The pipeline was run on Linux computing resources at Uppsala Multidisciplinary Center for Advanced Computational Science (UPPMAX) with jobs submitted using a slurm job scheduling system. Scripts may therefore require some editing to run on a different computing resource. Nonetheless, scripts should be run in the following order:
 
 1. Read processing (01_XXXXX): Filter fastq files to remove ....
 2. Read mapping (): Map each lane to the reference genome (bwa2 mem) producing multiple bam files per offspring.
