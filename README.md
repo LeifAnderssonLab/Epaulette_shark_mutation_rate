@@ -1,7 +1,7 @@
 # Estimation of germline mutation rate in the Epaulette shark
 
 This repository contains scripts necessary to re-conduct the de novo mutation rate estimation pipeline presented in our manuscript:
-Pedigree-based estimate of de novo mutation rate in the epaulette shark defines the lowest known vertebrate mutation rate.
+Slow evolution of the epaulette shark illustrated by its low rate of de novo mutations.
 
 ## Overview
 The pipeline was run on Linux computing resources at Uppsala Multidisciplinary Center for Advanced Computational Science (UPPMAX) with jobs submitted using a slurm job scheduling system. Scripts may therefore require some editing to run on a different computing resource. Nonetheless, scripts should be run in the following order:
