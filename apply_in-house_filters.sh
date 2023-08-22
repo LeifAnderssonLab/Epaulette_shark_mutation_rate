@@ -3,7 +3,7 @@
 # Author:       A.Sendell-Price
 # Date:         February 2023
 # Title:        06_apply_in-house_filters.sh
-# Description:  ADD
+# Description:  Applies in house genotype filtering criteria to dataset
 # slurm:        #SBATCH -p core -n 1
 #               #SBATCH -t 2-00:00:00
 # Requirements: requires installation of Simon Martin's
