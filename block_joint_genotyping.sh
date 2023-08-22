@@ -2,7 +2,7 @@
 # ------------------------------------------------------------------
 # Author:       A.Sendell-Price
 # Date:         February 2023
-# Title:        xx_block_joint_genotyping.sh
+# Title:        block_joint_genotyping.sh
 # Description:  Performs joint sample genotyping of parental and
 #               offspring samples for a given "genomic block".
 # slurm:        #SBATCH -p core -n 1
