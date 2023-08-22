@@ -2,8 +2,13 @@
 # ------------------------------------------------------------------
 # Author:       A.Sendell-Price
 # Date:         February 2023
-# Title:        04_apply_hard_filters.sh
-# Description:  ADD
+# Title:        apply_hard_filters.sh
+# Description:  Applies the following hard filters to genotypes:
+#                  1. Selects invariant and biallelic sites only
+#                  2. Removes sites where parental genotypes are missing
+#                  3. Removes sites from repeat regions / regions of low mappability
+#                  4. Sets genotypes to missing if genotype quality <20
+#                  5. Again, removes any sites where parental genotypes are missing
 # slurm:        #SBATCH -p core -n 1
 #               #SBATCH -t 2-00:00:00
 # ------------------------------------------------------------------
