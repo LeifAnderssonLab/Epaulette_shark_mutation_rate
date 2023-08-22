@@ -2,7 +2,7 @@
 # ------------------------------------------------------------------
 # Author:       A.Sendell-Price
 # Date:         February 2023
-# Title:        xx_merge_blocks.sh
+# Title:        merge_blocks.sh
 # Description:  Merges individual "genomic block" VCFs into a single
 #               file.
 # slurm:        #SBATCH -p core -n 1
