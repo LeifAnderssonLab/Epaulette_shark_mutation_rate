@@ -2,8 +2,9 @@
 # ------------------------------------------------------------------
 # Author:       A.Sendell-Price
 # Date:         February 2023
-# Title:        07_conduct_secondary_genotyping.sh
-# Description:  ADD
+# Title:        conduct_secondary_genotyping.sh
+# Description:  Performs secondary genotyping of candidate mutations
+#               using bcftools mpileup / call commands
 # slurm:        #SBATCH -p core -n 1
 #               #SBATCH -t 2-00:00:00
 # Requirements: requires installation of Simon Martin's
