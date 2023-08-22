@@ -2,8 +2,9 @@
 # ------------------------------------------------------------------
 # Author:       A.Sendell-Price
 # Date:         February 2023
-# Title:        05_identify_high_conf_heterozygotes.sh
-# Description:  ADD
+# Title:        ientify_high_conf_heterozygotes.sh
+# Description:  Identifies sites where both parents are homozygous for the same
+#               allele and offspring are all heteozygous.
 # slurm:        #SBATCH -p core -n 1
 #               #SBATCH -t 2-00:00:00
 # ------------------------------------------------------------------
