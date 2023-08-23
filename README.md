@@ -19,3 +19,6 @@ Default software used to run the pipeline are:
 - bcftools v1.17
 - bedtools v2.29.2
 - picard tools v3.1.0
+
+## Additional script
+This directory "accessory_scripts" also contains the sript "calc_mean_pi.R" which was used to calculate mean nucleotide diversity presented in Fig. 7. 
