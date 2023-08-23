@@ -6,7 +6,7 @@ Extremely low de novo mutation rate in the epaulette shark. This pipeline was us
 ## Overview
 The pipeline was run on Linux computing resources at Uppsala Multidisciplinary Center for Advanced Computational Science (UPPMAX) with jobs submitted using a slurm job scheduling system. Scripts may therefore require some editing to run on a different computing resource. Nonetheless, scripts should be run in the following order:
 
-1. Individual genotyping (block_individual_genotyping.sh): Call genotypes per individual with GATK HaplotypeCaller in BP-RESOLUTION. Genotypes calling is split into ten genomic blocks for speed. Genomic block ranges are defined in file XXXXXX.
+1. Individual genotyping (block_individual_genotyping.sh): Call genotypes per individual with GATK HaplotypeCaller in BP-RESOLUTION. Genotypes calling was split into ten genomic blocks for speed.
 2. Joint genotype calling (block_joint_genotyping.sh): Combine individual sample gVCFs with GATK CombineGVCFs and conduct joint genotyping with GATK GenotypeGVCF. Also split into ten genomic blocks for speed.
 3. Merge genomic block VCFs (merge_blocks.sh): Merge the ten genomic block VCFs into a single VCF file.
 4. Apply hard filters (apply_hard_filters.sh): Extract biallelic and monomorphic sites, remove genotypes with GQ < 20, remove sites within repeat reions or regions of low Mappability, remove sites with missing parental genotypes.
