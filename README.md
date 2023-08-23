@@ -7,8 +7,8 @@ Extremely low de novo mutation rate in the epaulette shark. This pipeline was us
 The pipeline was run on Linux computing resources at Uppsala Multidisciplinary Center for Advanced Computational Science (UPPMAX) with jobs submitted using a slurm job scheduling system. This script requires a single GATK BP-RESOLUTION VCF file as input. Scripts may require some editing to run on a different computing resource. Nonetheless, scripts should be run in the following order:
 
 1. Apply hard filters (apply_hard_filters.sh): Extract biallelic and monomorphic sites, remove genotypes with GQ < 20, remove sites within repeat reions or regions of low Mappability, remove sites with missing parental genotypes.
-2. Define in-house filters (identify_high_conf_heterozygotes.sh): Identify high confidence heterozygous sites and use these to define quality filter cut-offs. 
-3. Apply in-house filters (apply_in-house_filters.sh): Apply in-house filters and identify putative de novo mutations. 
+2. Identify high confidence heterozygous sites (identify_high_conf_heterozygotes.sh): Identify high confidence heterozygous sites to be used to define quality filter cut-offs.
+3. Apply in-house filters (apply_in-house_filters.sh): Define and apply in-house filters and identify putative de novo mutations. 
 4. Apply secondary genotype calling (secondary_genotyping.sh): Perform secondary genotype calling at putative mutations using bcftools mpileup and call. Only putative mutations where GATK and bcftools genotypes match are considered true candidate de novo mutations. 
 
 ## Requirements 
