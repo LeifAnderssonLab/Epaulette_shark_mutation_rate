@@ -17,7 +17,8 @@ The pipeline was run on Linux computing resources at Uppsala Multidisciplinary C
 ## Requirements 
 
 Default software used to run the pipeline are:
-- bwa2 vX.X
-- samtools
-- bcftools
-- picard tools
+- samtools v1.5
+- vcftools v0.1.16
+- bcftools v1.17
+- bedtools v2.29.2
+- picard tools v3.1.0
